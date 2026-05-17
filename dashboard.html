@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مروان أكاديمي - لوحة التحكم</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+</head>
+<body class="dashboard-body">
+    <!-- شريط التنقل -->
+    <nav class="navbar">
+        <div class="nav-brand">
+            <i data-feather="book-open" class="nav-icon"></i>
+            <span>مروان <span class="gold-text">أكاديمي</span></span>
+        </div>
+        <div class="nav-actions">
+            <span class="user-greeting">مرحباً، {{ user.username }}</span>
+            <button class="btn-logout" onclick="logout()">
+                <i data-feather="log-out"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- المحتوى الرئيسي -->
+    <main class="dashboard-container">
+        <!-- قسم إدخال النص -->
+        <div class="glass-card dashboard-card">
+            <div class="card-header">
+                <h2><i data-feather="edit-3"></i> النص الأصلي</h2>
+                <span class="word-count" id="wordCount">0 كلمة</span>
+            </div>
+            
+            <textarea 
+                id="originalText" 
+                placeholder="ألصق النص المراد إعادة صياغته هنا... (يدعم حتى 20,000 كلمة)"
+                maxlength="150000"
+                oninput="updateWordCount()"></textarea>
+            
+            <div class="action-row">
+                <div class="style-selector">
+                    <label>نمط الصياغة:</label>
+                    <div class="style-buttons">
+                        <button class="style-btn active" data-style="academic" onclick="selectStyle('academic', this)">
+                            <i data-feather="award"></i> أكاديمي
+                        </button>
+                        <button class="style-btn" data-style="creative" onclick="selectStyle('creative', this)">
+                            <i data-feather="feather"></i> إبداعي
+                        </button>
+                        <button class="style-btn" data-style="summary" onclick="selectStyle('summary', this)">
+                            <i data-feather="file-text"></i> تلخيص
+                        </button>
+                    </div>
+                </div>
+                
+                <button class="btn-upload" onclick="document.getElementById('fileInput').click()">
+                    <i data-feather="upload-cloud"></i> رفع ملف
+                </button>
+                <input type="file" id="fileInput" hidden accept=".txt,.pdf,.docx,.doc" onchange="handleFileUpload(event)">
+            </div>
+            
+            <button class="btn-primary btn-rephrase" onclick="rephraseText()">
+                <i data-feather="refresh-cw"></i>
+                <span>إعادة الصياغة</span>
+            </button>
+        </div>
+
+        <!-- قسم النتيجة -->
+        <div class="glass-card dashboard-card" id="resultCard" style="display:none;">
+            <div class="card-header">
+                <h2><i data-feather="check-circle"></i> النص المُعاد صياغته</h2>
+                <div class="result-actions">
+                    <button class="btn-icon" onclick="copyResult()" title="نسخ">
+                        <i data-feather="copy"></i>
+                    </button>
+                    <button class="btn-icon btn-download" onclick="downloadWord()" title="تحميل كـ Word">
+                        <i data-feather="file-text"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <div class="result-content" id="resultText"></div>
+            
+            <div class="result-footer">
+                <span class="badge" id="resultStyle"></span>
+                <span class="badge" id="resultWords"></span>
+            </div>
+        </div>
+
+        <!-- السجل -->
+        <div class="glass-card dashboard-card">
+            <div class="card-header">
+                <h2><i data-feather="clock"></i> آخر المعالجات</h2>
+            </div>
+            <div class="history-list" id="historyList">
+                <p class="text-muted">جاري التحميل...</p>
+            </div>
+        </div>
+    </main>
+
+    <!-- إشعار Toast -->
+    <div class="toast" id="toast">
+        <i data-feather="check-circle"></i>
+        <span id="toastMessage"></span>
+    </div>
+
+    <!-- مؤشر التحميل -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-spinner">
+            <div class="spinner-gold"></div>
+            <p>جارٍ إعادة الصياغة...</p>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    <script>
+        feather.replace();
+        let selectedStyle = 'academic';
+        loadHistory();
+    </script>
+</body>
+</html>

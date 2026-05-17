@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مروان أكاديمي - تسجيل الدخول</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;900&family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+</head>
+<body>
+    <!-- تموجات الخلفية -->
+    <div class="wave-container">
+        <svg class="wave-top" viewBox="0 0 1440 320">
+            <path fill="url(#goldGradient)" fill-opacity="0.1" d="M0,96L48,112C96,128,192,160,288,186.7C384,213,480,235,576,213.3C672,192,768,128,864,128C960,128,1056,192,1152,208C1248,224,1344,192,1392,176L1440,160L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0L0,0Z"></path>
+            <defs>
+                <linearGradient id="goldGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" style="stop-color:#D4AF37;stop-opacity:1" />
+                    <stop offset="100%" style="stop-color:#FFD700;stop-opacity:1" />
+                </linearGradient>
+            </defs>
+        </svg>
+        <svg class="wave-bottom" viewBox="0 0 1440 320">
+            <path fill="url(#goldGradient)" fill-opacity="0.05" d="M0,224L48,213.3C96,203,192,181,288,181.3C384,181,480,203,576,224C672,245,768,267,864,261.3C960,256,1056,224,1152,208C1248,192,1344,192,1392,192L1440,192L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
+        </svg>
+    </div>
+
+    <!-- الجسيمات المتحركة -->
+    <div class="particles" id="particles"></div>
+
+    <!-- الحاوية الرئيسية -->
+    <div class="main-container">
+        <div class="glass-card">
+            <!-- الشعار -->
+            <div class="logo-section">
+                <div class="logo-icon">
+                    <i data-feather="book-open" class="pulse-icon"></i>
+                </div>
+                <h1 class="app-title">مروان <span class="gold-text">أكاديمي</span></h1>
+                <p class="subtitle">Mervan Academic</p>
+                <p class="description">ذكاؤك الأكاديمي الخاص - صياغة بشرية احترافية</p>
+            </div>
+
+            <!-- نموذج تسجيل الدخول -->
+            <div class="form-section" id="loginForm">
+                <h2 class="form-title">تسجيل الدخول</h2>
+                <div class="input-group">
+                    <div class="input-icon">
+                        <i data-feather="mail"></i>
+                    </div>
+                    <input type="email" id="loginEmail" placeholder="البريد الإلكتروني" dir="ltr">
+                </div>
+                <div class="input-group">
+                    <div class="input-icon">
+                        <i data-feather="lock"></i>
+                    </div>
+                    <input type="password" id="loginPassword" placeholder="كلمة المرور" dir="ltr">
+                </div>
+                <button class="btn-primary" onclick="login()">
+                    <span>دخول</span>
+                    <i data-feather="arrow-left"></i>
+                </button>
+                <p class="toggle-form">
+                    ليس لديك حساب؟ 
+                    <a href="#" onclick="toggleForms()">إنشاء حساب جديد</a>
+                </p>
+            </div>
+
+            <!-- نموذج التسجيل -->
+            <div class="form-section hidden" id="registerForm">
+                <h2 class="form-title">إنشاء حساب</h2>
+                <div class="input-group">
+                    <div class="input-icon">
+                        <i data-feather="user"></i>
+                    </div>
+                    <input type="text" id="registerUsername" placeholder="اسم المستخدم">
+                </div>
+                <div class="input-group">
+                    <div class="input-icon">
+                        <i data-feather="mail"></i>
+                    </div>
+                    <input type="email" id="registerEmail" placeholder="البريد الإلكتروني" dir="ltr">
+                </div>
+                <div class="input-group">
+                    <div class="input-icon">
+                        <i data-feather="lock"></i>
+                    </div>
+                    <input type="password" id="registerPassword" placeholder="كلمة المرور">
+                </div>
+                <button class="btn-primary" onclick="register()">
+                    <span>إنشاء الحساب</span>
+                    <i data-feather="user-plus"></i>
+                </button>
+                <p class="toggle-form">
+                    لديك حساب بالفعل؟ 
+                    <a href="#" onclick="toggleForms()">تسجيل الدخول</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    <script>
+        feather.replace();
+    </script>
+</body>
+</html>
